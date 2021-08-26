@@ -1,35 +1,36 @@
 <?php include "includes/db.php";
 
-if(!isset($_POST['submit'])){
-    //echo "Please Fill all data";
+// validate empty fields || Not submition
+if(! (isset($_POST['submit']) || empty($_POST['username']) || 
+     empty($_POST['email']) || empty($_POST['age']) || empty($_POST['pass']))){
+    $message = "Please Fill all data";
+    echo "<script type='text/javascript'>alert('$message');</script>";
 }
 else{
     
-    $message = "Successful Completion";
-    echo "<script type='text/javascript'>alert('$message');</script>";
+   // add some client security validation inputs
+    $username = mysqli_real_escape_string($con, trim($_POST['username']));
+    $email = mysqli_real_escape_string($con, trim($_POST['email']));
+    $pass =  mysqli_real_escape_string($con, trim($_POST['pass']));
+    $age = mysqli_real_escape_string($con, trim($_POST['age']));
     
-    /*
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $age = $_POST['age'];
-    $query = "INSERT INTO users (id, user_name, email, age, password) VALUES 
+    $query =  "INSERT INTO users (id, user_name, email, age, password) VALUES 
     (null, '$username', '$email', '$age', '$pass')";
     $result = mysqli_query($con, $query);
     
+    // display error message
     if(!$result){
         echo("Error description: " . mysqli_error($con));
         exit;
     }
     
-    // close database connection
-    //mysqli_free_result($result);
+    // free / close database connection
+    mysqli_free_result($result);
     mysqli_close($con);
-   // header("location: profile.php");
-   
-   */
+    
+    // redirect to page register.php
+    header("location: register.php"); 
 }
-
 
 ?>
 
