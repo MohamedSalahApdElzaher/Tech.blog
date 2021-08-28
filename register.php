@@ -1,7 +1,7 @@
 <?php include "includes/db.php";
 
 // validate empty fields || Not submition
-if(! (isset($_POST['submit']) || empty($_POST['username']) || 
+if((!isset($_POST['submit']) || empty($_POST['username']) || 
      empty($_POST['email']) || empty($_POST['age']) || empty($_POST['pass']))){
     $message = "Please Fill all data";
     echo "<script type='text/javascript'>alert('$message');</script>";
