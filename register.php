@@ -1,4 +1,7 @@
-<?php include "includes/db.php";
+<?php 
+
+include "includes/db.php";
+error_reporting(E_ALL);
 
 // validate empty fields || Not submition
 if((!isset($_POST['submit']) || empty($_POST['username']) || 
@@ -7,6 +10,14 @@ if((!isset($_POST['submit']) || empty($_POST['username']) ||
     echo "<script type='text/javascript'>alert('$message');</script>";
 }
 else{
+    
+    // send an email
+    $to = 'ms01010103727@gmail.com';
+    $subject = 'Form Data Sumbition';
+    $message = 'Your Data was recived by Us, Thanks For your time!!';  
+    
+    echo mail($to, $subject, $message ) ? 'Mail Sent to You!' : 'Error Sending mail';
+       
     
    // add some client security validation inputs
     $username = mysqli_real_escape_string($con, trim($_POST['username']));
@@ -30,6 +41,8 @@ else{
     
     // redirect to page register.php
     header("location: register.php"); 
+    
+  
 }
 
 ?>
@@ -76,17 +89,17 @@ div {
 <div>
   <form action="register.php" method="post">
     <label for="username">User Name</label>
-    <input type="text" id="username" name="username" placeholder="Your name..">
+    <input type="text" id="username" name="username" placeholder="Your name.." required>
 
     
     <label for="email">Email</label>
-    <input type="text" id="email" name="email" placeholder="Your Email..">
+    <input type="text" id="email" name="email" placeholder="Your Email.." required>
    
      <label for="password">Password</label>
-     <input type="text" id="pass" name="pass" placeholder="Your Password should appears here..">
+     <input type="text" id="pass" name="pass" placeholder="Your Password should appears here.." required>
     
      <label for="age">age</label>
-     <input type="text" id="age" name="age" placeholder="Your Age..">
+     <input type="text" id="age" name="age" placeholder="Your Age.." required>
      
     <input type="submit" value="Submit" name="submit">
   </form>
