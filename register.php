@@ -2,23 +2,7 @@
 
 include "includes/db.php";
 error_reporting(E_ALL);
-
-// validate empty fields || Not submition
-if((!isset($_POST['submit']) || empty($_POST['username']) || 
-     empty($_POST['email']) || empty($_POST['age']) || empty($_POST['pass']))){
-    $message = "Please Fill all data";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-}
-else{
-    
-    // send an email
-    $to = 'ms01010103727@gmail.com';
-    $subject = 'Form Data Sumbition';
-    $message = 'Your Data was recived by Us, Thanks For your time!!';  
-    
-    echo mail($to, $subject, $message ) ? 'Mail Sent to You!' : 'Error Sending mail';
-       
-    
+     
    // add some client security validation inputs
     $username = mysqli_real_escape_string($con, trim($_POST['username']));
     $email = mysqli_real_escape_string($con, trim($_POST['email']));
@@ -40,10 +24,7 @@ else{
     mysqli_close($con);
     
     // redirect to page register.php
-    header("location: register.php"); 
-    
-  
-}
+    header("location: index.php"); 
 
 ?>
 
@@ -84,7 +65,7 @@ div {
 </style>
 <body>
 
-<h3>Registration Form</h3>
+<h1 style="color:green">Registration Form</h1>
 
 <div>
   <form action="register.php" method="post">

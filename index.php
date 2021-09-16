@@ -27,8 +27,6 @@
                             $p_date = $row['p_date'];
                             $p_image = $row['p_image'];
                             $p_content = $row['p_content'];
-
-
                ?>
                 
              
@@ -58,13 +56,7 @@
                 
   
         </div>
-                   
-                   
-                   
-                   
-                   
-                   
-                   
+       
                     <!-- Blog Sidebar Widgets Column -->
 
                      <?php include "includes/sidebar.php"; ?>

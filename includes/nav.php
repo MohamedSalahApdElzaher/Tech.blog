@@ -17,10 +17,8 @@
                 <ul class="nav navbar-nav">
                    
                     
-                    <li><a href="https://www.linkedin.com/in/muhammad-sala7/">Linkedin</a></li>
-                    <li><a href="https://github.com/MohamedSalahApdElzaher">Github</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=100004219846601">Facebook</a></li>
-                     <li><a href="https://www.youtube.com/channel/UCnVzhpqu7gFn_1ycHyI9ofA">Youtube</a></li>
+                    <li><a href="contact-form.php">Contact US</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li><a href="register.php">Register</a></li>
                    
                     
