@@ -20,8 +20,7 @@
                     <li><a href="contact-form.php">Contact US</a></li>
                     <li><a href="about.php">About</a></li>
                     <li><a href="register.php">Register</a></li>
-                   
-                    
+                    <li><a href="profile.php">Profile</a></li>
    
                 </ul>
                 

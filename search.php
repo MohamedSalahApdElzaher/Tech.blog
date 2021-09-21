@@ -1,4 +1,3 @@
-    <?php include "includes/db.php"; ?>
 
     <?php include "includes/header.php"; ?>
 
@@ -21,7 +20,7 @@
                          // search posts
                     if(isset($_POST['submit'])){
                        $search_text =  $_POST['search_text'];
-                       $query = "SELECT * FROM posts WHERE p_title LIKE '%$search_text%'"; 
+                       $query = "SELECT * FROM posts WHERE p_content LIKE '%$search_text%'"; 
                        $result = mysqli_query($con, $query);                            
                     }
                         while($row = mysqli_fetch_assoc($result)){

@@ -1,5 +1,6 @@
-         
-            <div class="col-md-4">
+                
+                
+                 <div class="col-md-4">
 
                 <!-- Blog Search Well -->
                 <div class="well">
@@ -20,8 +21,6 @@
                 </div>
                 
                  
-                
-
                 <!-- Blog Categories Well -->
                 <div class="well">
                     <h4>Blog Categories</h4>
@@ -29,15 +28,15 @@
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
                                
-                                 <?php // display navigation data 
+                        <?php // display navigation data
                     
                                 $query = "SELECT * FROM categries";
                                 $q_select = mysqli_query($con, $query);
                                 while($row = mysqli_fetch_assoc($q_select)){
                                     $title=$row['title'];
-                                    echo "<li><a href='#'>{$title}</a></li>";  
-                      
-                        }
+                                    echo "<li><a href='#'>{$title}</a></li>"; 
+                    
+                             }         
                     
                     ?>
                                
@@ -51,7 +50,6 @@
                 </div>
                 
                 
-
                 <!-- Side Widget Well -->
                 <div class="well">
                     <h4>Join Us</h4>

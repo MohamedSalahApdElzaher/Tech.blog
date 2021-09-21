@@ -1,17 +1,19 @@
-<?php error_reporting(E_ALL);
+   <?php
 
-    
-   // add some client security validation inputs
-    if(isset($_POST['sumbit'])){
+       if(isset($_POST['sumbit'])){
         
         $name = trim($_POST['name']);
         $message = trim($_POST['message']);
         $subject = trim($_POST['subject']);
         
+        echo"ho";
+        
         // send an message
         $to = 'ms01010103727@gmail.com'; 
+        $res = mail($to, $subject, $message);
+        echo $res;
 
-        if (mail($to, $subject, $message )){
+        if ($res){
 
               $message = "Your Message was sent succssful";
               echo "<script type='text/javascript'>alert('$message');</script>";
@@ -65,10 +67,10 @@ div {
 </style>
 <body>
 
-<h1 style="color:green">Contact Form</h1>
+<h1 style="color:green;text-align: center;">Contact Form</h1>
 
 <div>
-  <form action="register.php" method="post">
+  <form action="contact-form.php" method="post">
     <label for="name">Full Name</label>
     <input type="text" id="name" name="name" placeholder="Your name.." required>
 

@@ -2,89 +2,235 @@
 
 include "includes/db.php";
 error_reporting(E_ALL);
-     
-   // add some client security validation inputs
-    $username = mysqli_real_escape_string($con, trim($_POST['username']));
-    $email = mysqli_real_escape_string($con, trim($_POST['email']));
-    $pass =  mysqli_real_escape_string($con, trim($_POST['pass']));
-    $age = mysqli_real_escape_string($con, trim($_POST['age']));
+
+if(isset($_POST['submit'])){
     
-    $query =  "INSERT INTO users (id, user_name, email, age, password) VALUES 
-    (null, '$username', '$email', '$age', '$pass')";
-    $result = mysqli_query($con, $query);
+     // add some client security validation inputs
+    
+    if( ctype_space($_POST['name']) || ctype_space($_POST['email']) || ctype_space($_POST['pass']))
+    {
+        $message = "Please Fill all data";
+        echo "<script type='text/javascript'>alert('$message');</script>";  
+        exit;
+    }
+    
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) )
+    {
+          $message = "Email is not a valid email address";
+          echo "<script type='text/javascript'>alert('$message');</script>"; 
+          exit;
+    }
+    
+    $username = mysqli_real_escape_string($con, trim($_POST['name']));
+    $email = mysqli_real_escape_string($con, trim($_POST['email']));
+    $pass =  mysqli_real_escape_string($con, trim($_POST['pass']));    
+    $account = $_POST['account'];
+    $gender = $_POST['gender'];
+    
+    // join time and date
+    
+    $unixTime = time();
+    $timeZone = new \DateTimeZone('Africa/Cairo');
+
+    $time = new \DateTime();
+    $time->setTimestamp($unixTime)->setTimezone($timeZone);
+
+    $formattedTime = $time->format('Y/m/d H:i:s');
+     
+    $query =  "INSERT INTO users (id, user_name, email, password, joined, gender, account_type) VALUES (null, '$username', '$email', '$pass', '$formattedTime', '$gender', '$account')";
+    
+    $result = mysqli_query($con, $query);    
     
     // display error message
+    
     if(!$result){
         echo("Error description: " . mysqli_error($con));
         exit;
     }
+    else{
+        // sleep 3 sec
+        sleep(3);
     
-    // free / close database connection
-    mysqli_free_result($result);
-    mysqli_close($con);
-    
-    // redirect to page register.php
-    header("location: index.php"); 
+        // close connection
+        //mysqli_free_result($result);
+        mysqli_close($con);
+
+        // redirect to page register.php
+        
+        header("location: login.php"); 
+    }
+       
+}
 
 ?>
 
 
+
 <!DOCTYPE html>
+
 <html>
-<style>
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-</style>
-<body>
-
-<h1 style="color:green">Registration Form</h1>
-
-<div>
-  <form action="register.php" method="post">
-    <label for="username">User Name</label>
-    <input type="text" id="username" name="username" placeholder="Your name.." required>
-
-    
-    <label for="email">Email</label>
-    <input type="text" id="email" name="email" placeholder="Your Email.." required>
-   
-     <label for="password">Password</label>
-     <input type="text" id="pass" name="pass" placeholder="Your Password should appears here.." required>
-    
-     <label for="age">age</label>
-     <input type="text" id="age" name="age" placeholder="Your Age.." required>
-     
-    <input type="submit" value="Submit" name="submit">
-  </form>
-</div>
-
-</body>
+  <head>
+    <title>Simple registration form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      }
+      body, div, h1, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      }
+      h1 {
+      padding: 10px 0;
+      font-size: 32px;
+      font-weight: 300;
+      text-align: center;
+      }
+      p {
+      font-size: 12px;
+      }
+      hr {
+      color: #a9a9a9;
+      opacity: 0.3;
+      }
+      .main-block {
+      max-width: 340px; 
+      min-height: 460px; 
+      padding: 10px 0;
+      margin: auto;
+      border-radius: 5px; 
+      border: solid 1px #ccc;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+      background: #ebebeb; 
+      }
+      form {
+      margin: 0 30px;
+      }
+      .account-type, .gender {
+      margin: 15px 0;
+      }
+      input[type=radio] {
+      display: none;
+      }
+      label#icon {
+      margin: 0;
+      border-radius: 5px 0 0 5px;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      padding-top: 4px;
+      margin-right: 20px;
+      text-indent: 30px;
+      overflow: visible;
+      cursor: pointer;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1c87c9;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 4px;
+      top: 8px;
+      left: 4px;
+      border: 3px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      input[type=text], input[type=password] {
+      width: calc(100% - 57px);
+      height: 36px;
+      margin: 13px 0 0 -5px;
+      padding-left: 10px; 
+      border-radius: 0 5px 5px 0;
+      border: solid 1px #cbc9c9; 
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #fff; 
+      }
+      input[type=password] {
+      margin-bottom: 15px;
+      }
+      #icon {
+      display: inline-block;
+      padding: 9.3px 15px;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #1c87c9;
+      color: #fff;
+      text-align: center;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      #submit {
+      width: 100%;
+      padding: 10px 0;
+      margin: 10px auto;
+      border-radius: 5px; 
+      border: none;
+      background: #1c87c9; 
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      }
+      button:hover {
+      background: #26a9e0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-block">
+      <h1>Registration</h1>
+      <form action="register.php" method="post">
+        <hr>
+        <div class="account-type">
+          <input type="radio" value="Personal" id="radioOne" name="account" checked/>
+          <label for="radioOne" class="radio">Personal</label>
+          <input type="radio" value="Company" id="radioTwo" name="account" />
+          <label for="radioTwo" class="radio">Company</label>
+        </div>
+        <hr>
+        <label id="icon" for="name"><i class="fas fa-envelope"></i></label>
+        <input type="text" name="email" id="email" placeholder="Email" required/>
+        <label id="icon" for="name"><i class="fas fa-user"></i></label>
+        <input type="text" name="name" id="name" placeholder="Name" required/>
+        <label id="icon" for="name"><i class="fas fa-unlock-alt"></i></label>
+        <input type="password" name="pass" id="pass" placeholder="Password" required/>
+        <hr>
+        <div class="gender">
+          <input type="radio" value="Male" id="male" name="gender" checked/>
+          <label for="male" class="radio">Male</label>
+          <input type="radio" value="Female" id="female" name="gender"  />
+          <label for="female" class="radio">Female</label>
+        </div>
+        <hr>
+        <div class="btn-block">
+          <p>By clicking Register, you agree on our <a href="index.php">Privacy Policy</a>.</p>
+          <input type="submit" id="submit" name="submit" value="Submit"/>
+          <p>Aleady have an account?<a href="login.php">Login</a>.</p>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
