@@ -12,9 +12,33 @@ session_start();
         $query = "SELECT * FROM users WHERE email='$email' AND password='$pass'";
         $result = mysqli_query($con, $query);
         $noOfrows = mysqli_num_rows($result);
+       
+              if($noOfrows > 0 ){
+                  
+                   $_SESSION['logged'] = true;
+                  
+                    while($row = mysqli_fetch_assoc($result)){
+                        $user_name = $row['user_name'];
+                        $id = $row['id'];
+                        $email = $row['email'];
+                        $password = $row['password'];
+                        $gender = $row['gender'];
+                        $account_type = $row['account_type'];
+                        $joined = $row['joined'];
+                    }
+                  
+                  $_SESSION['id'] = $id;
+                  $_SESSION['name'] = $user_name;
+                  $_SESSION['email'] = $email;
+                  $_SESSION['password'] = $password;
+                  $_SESSION['gender'] =$gender;
+                  $_SESSION['account_type']=$account_type;
+                  $_SESSION['joined']=$joined;
+               }
         
-       $_SESSION['logged'] = $noOfrows > 0 ? true : false ;
+        // $_SESSION['logged'] = $noOfrows > 0 ? true : false ;
          
+   
 
        if(!$result || $noOfrows <= 0 ){
             echo("Error");
@@ -39,9 +63,12 @@ session_start();
 
 <html>
   <head>
-    <title>Simple registration form</title>
+    <title>Login Form</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="css/form.css"> 
+    
     <style>
       html, body {
       display: flex;

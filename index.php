@@ -27,7 +27,6 @@
                             $p_image = $row['p_image'];
                             $p_content = $row['p_content'];
 
-
                ?>
                 
            <!-- Blog Post -->
