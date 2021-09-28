@@ -1,6 +1,32 @@
                 
                 
                  <div class="col-md-4">
+                 <!-- add new post -->
+                 <div class="well">
+                    <h4>Add Post</h4>
+                     <form action="search.php" method="post">
+
+                    <div class="input-group">
+                        <input type="text" name="text-title" placeholder="Title.." 
+                        style="border-style: none;margin:5px;border-radius: 5px;">
+                        <textarea name="post" id="post" cols="40" rows="5" placeholder="What's in your mind..." 
+                            
+                        style="margin:5px;border-radius: 5px;border-style: none;" required></textarea>
+                    </div>
+                     </form>
+                    <!-- /.input-group -->
+                     
+                            <button style="margin:5px;border-radius: 5px; " type="submit" name="add-post" class="btn btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                         
+                           
+                    
+                            <button type="submit" name="choose-image" class="btn btn-default">
+                                <span class="glyphicon glyphicon-paperclip"></span>
+                            </button>
+                      
+                </div>
 
                 <!-- Blog Search Well -->
                 <div class="well">
@@ -8,7 +34,7 @@
                      <form action="search.php" method="post">
 
                     <div class="input-group">
-                        <input name="search_text" type="text" class="form-control">
+                        <input name="search_text" type="text" class="form-control" required>
                         <span class="input-group-btn">
                             <button type="submit" name="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>

@@ -1,28 +1,11 @@
-<?php
-
-require_once "controllerUserData.php";
-include "includes/db.php";
-
-if(!$_SESSION['login']){
-     header('location: login-user.php');
-}else{
-     $mail = $_SESSION['email'];
-     $email_check = "SELECT user_name FROM users WHERE email = '$mail'";
-     $res = mysqli_query($con, $email_check);
-     while($row = mysqli_fetch_assoc($res)){
-         $name = $row['user_name']; 
-     }
-}
-
-?>
-
+<?php require_once "controllerUserData.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
    
     <meta charset="UTF-8">
-    <title>Edit Your Profile</title>
+    <title>Registeration Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
 </head>
@@ -31,9 +14,9 @@ if(!$_SESSION['login']){
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 form">
-                <form action="profile.php" method="POST" autocomplete="">
-                    <h2 class="text-center">Your Profile</h2>
-                    <p class="text-center">You can edit Name and Password.</p>
+                <form action="signup-user.php" method="POST" autocomplete="">
+                    <h2 class="text-center">Registeration Form</h2>
+                    <p class="text-center">It's quick and easy.</p>
                     <?php
                     if(count($errors) == 1){
                         ?>
@@ -77,14 +60,19 @@ if(!$_SESSION['login']){
                     <div class="form-group">
                         <input class="form-control" type="text" name="name" placeholder="Full Name" required value="<?php echo $name ?>">
                     </div>
-              
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Email Address" required value="<?php echo $email ?>">
+                    </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                     </div>
-             
                     <div class="form-group">
-                        <input class="form-control button" type="submit" name="update" value="update">
+                        <input class="form-control" type="password" name="cpassword" placeholder="Confirm password" required>
                     </div>
+                    <div class="form-group">
+                        <input class="form-control button" type="submit" name="signup" value="Signup">
+                    </div>
+                    <div class="link login-link text-center">Already a member? <a href="login-user.php">Login here</a></div>
                      <div class="link login-link text-center">No changes? <a href="index.php">back home</a></div>
                 </form>
             </div>

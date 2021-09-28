@@ -1,5 +1,6 @@
-  <!-- Footer -->
+<!-- Footer -->
         <footer>
+           <br>
             <div class="row">
             
              <div class="col-lg-12">
@@ -24,7 +25,6 @@
             </div>
             <!-- /.row -->
         </footer>
-
     </div>
     <!-- /.container -->
 
