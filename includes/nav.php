@@ -1,4 +1,5 @@
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -25,11 +26,9 @@
                    <li><a href="" style="color:white"><?php echo $_SESSION['email']?></a></li>
                    <li><a href="logout-user.php">Logout</a></li>;                   
                     <li><a href="profile.php">Profile</a></li>
-                </ul>
-                
-                
-                
-                
+              
+                  </ul>
+       
             </div>
             <!-- /.navbar-collapse -->
         </div>

@@ -1,7 +1,8 @@
-<?php 
+<?php   include "includes/db.php";
+
 
 session_start();
-require "includes/db.php";
+
 $email = "";
 $name = "";
 $errors = array();
@@ -93,6 +94,54 @@ if(isset($_POST['update'])){
 
 }
 
+// Datetime function
+
+function get_date_time(){
+    $unixTime = time();
+    $timeZone = new \DateTimeZone('Africa/Cairo');
+
+    $time = new \DateTime();
+    $time->setTimestamp($unixTime)->setTimezone($timeZone);
+
+    $formattedTime = $time->format('Y/m/d H:i:s');
+    return $formattedTime;
+}
+
+// add post to database
+
+function add_post_db($author, $author_id, $title, $content, $date, $img_name){
+    include "includes/db.php";
+    $query = "INSERT INTO posts (p_id, author_id, p_author, p_title, p_content, p_date, p_image) VALUES (null,'$author_id','$author', '$title', '$content', '$date', '$img_name')";
+    $res = mysqli_query($con, $query);  
+    if(!$res) echo mysqli_error($con);
+    else header('location: index.php'); 
+}
+
+// if user click add post
+
+if(isset($_POST['add-post'])){	
+    include "includes/db.php";
+    // upload image
+	$img_name = $_FILES['choose-image']['name'];
+	$tmp_img_name = $_FILES['choose-image']['tmp_name'];
+    $folder = 'images/';
+	$res = move_uploaded_file($tmp_img_name, $folder.$img_name);
+    
+    $title = $_POST['text-title'];
+    $content = $_POST['post-content'];
+    $date = get_date_time();
+    $email = $_SESSION['email'];
+    $query = "SELECT * FROM users WHERE email='$email'";
+    $result = mysqli_query($con, $query);
+    while($row = mysqli_fetch_assoc($result)){
+        $author = $row['user_name'];
+        $author_id = $row['id'];
+    }
+    add_post_db($author, $author_id, $title, $content, $date, $img_name);
+}
+
+
+
 // if user click send message
 
 if(isset($_POST['send'])){
@@ -140,8 +189,7 @@ if(isset($_POST['send'])){
         if(mysqli_num_rows($res) > 0){
             $fetch = mysqli_fetch_assoc($res);
             $fetch_pass = $fetch['password'];
-            //$user_name = $fetch['user_name'];
-           // $_SESSION['user_name']  = $user_name;
+
             if(password_verify($password, $fetch_pass)){
                 $_SESSION['email'] = $email;
                 
@@ -149,7 +197,6 @@ if(isset($_POST['send'])){
                 $status = $fetch['status'];
                 $msg['logged']='You are just logged in successfully.';
  
-                
                 /*
                 if($status == 'verified'){
                   $_SESSION['email'] = $email;
@@ -160,7 +207,7 @@ if(isset($_POST['send'])){
                     $_SESSION['info'] = $info;
                     header('location: user-otp.php');
                 }
-                */
+             */
                 
             }else{
                 $errors['email'] = "Incorrect email or password!";
@@ -252,4 +299,5 @@ if(isset($_POST['send'])){
     if(isset($_POST['login-now'])){
         header('Location: login-user.php');
     }
+
 ?>

@@ -3,34 +3,30 @@
                  <div class="col-md-4">
                  <!-- add new post -->
                  <div class="well">
-                    <h4>Add Post</h4>
-                     <form action="search.php" method="post">
-
-                    <div class="input-group">
-                        <input type="text" name="text-title" placeholder="Title.." 
-                        style="border-style: none;margin:5px;border-radius: 5px;">
-                        <textarea name="post" id="post" cols="40" rows="5" placeholder="What's in your mind..." 
-                            
-                        style="margin:5px;border-radius: 5px;border-style: none;" required></textarea>
-                    </div>
-                     </form>
-                    <!-- /.input-group -->
-                     
-                            <button style="margin:5px;border-radius: 5px; " type="submit" name="add-post" class="btn btn-default">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                         
-                           
+                    <h4 style="font-weight:bold">Add Post</h4>
                     
-                            <button type="submit" name="choose-image" class="btn btn-default">
-                                <span class="glyphicon glyphicon-paperclip"></span>
-                            </button>
-                      
+                     <form action="controllerUserData.php" method="post" enctype="multipart/form-data">
+
+                        <div class="input-group">
+                          
+                           <input type="text" name="text-title" placeholder="Title.." 
+                            style="border-style: none;margin:5px;border-radius: 5px;" required>
+                            
+                            <textarea name="post-content" id="post" cols="40" rows="5" placeholder="What's in your mind..." 
+                            style="margin:5px;border-radius: 5px;border-style: none;" required></textarea>
+                        </div>
+                        
+                            <input type="file" name="choose-image" style="margin:5px">
+                        
+                           <button style="margin:5px" type="submit" name="add-post" class="btn btn-default"> <span  class="glyphicon glyphicon-plus"></span></button>
+     
+                     </form>
+       
                 </div>
 
                 <!-- Blog Search Well -->
                 <div class="well">
-                    <h4>Blog Search</h4>
+                    <h4 style="font-weight:bold">Search</h4>
                      <form action="search.php" method="post">
 
                     <div class="input-group">
@@ -49,7 +45,7 @@
                  
                 <!-- Blog Categories Well -->
                 <div class="well">
-                    <h4>Blog Categories</h4>
+                    <h4 style="font-weight:bold">Categories</h4>
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
@@ -78,7 +74,7 @@
                 
                 <!-- Side Widget Well -->
                 <div class="well">
-                    <h4>Join Us</h4>
+                    <h4 style="font-weight:bold">About Us</h4>
                     <p>
                        
                        Join the conversation about all things creative and curious over at our blog! 

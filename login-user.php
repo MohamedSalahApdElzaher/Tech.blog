@@ -1,4 +1,3 @@
-
 <?php require_once "controllerUserData.php"; ?>
 
 <!DOCTYPE html>
@@ -16,7 +15,7 @@
         <div class="row">
             <div class="col-md-4 offset-md-4 form login-form">
                 <form action="login-user.php" method="POST" autocomplete="">
-                    <h2 class="text-center">Login Form</h2>
+                    <h2 class="text-center">Sign in Form</h2>
                     <p class="text-center">Login with your email and password.</p>
                     <?php
                     if(count($errors) > 0){
@@ -59,7 +58,7 @@
                     <div class="form-group">
                         <input class="form-control button" type="submit" name="login" value="Login">
                     </div>
-                    <div class="link login-link text-center">Not yet a member? <a href="signup-user.php">Signup now</a></div>
+                    <div class="link login-link text-center">Not yet a member? <a href="signup-user.php">Sign up now</a></div>
                      <div class="link login-link text-center">No changes? <a href="index.php">back home</a></div>
                 </form>
             </div>

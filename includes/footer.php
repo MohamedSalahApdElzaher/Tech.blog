@@ -4,15 +4,15 @@
             <div class="row">
             
              <div class="col-lg-12">
-                    <p style="text-align: center; font-size:18px; font-weight:bold;">Follow Me</p>
+                    <p style="margin:20px;text-align: center; font-size:18px; font-weight:bold;">Follow Me</p>
                 </div>
       
                 <div class="col-lg-12">
                          <p style="text-align: center;">
-                        <a style="color:blue;" href="https://www.linkedin.com/in/muhammad-sala7">LinkedIn</a></p>
-                            <p style="text-align: center;">
-                        <a style="color:blue;" href="https://github.com/MohamedSalahApdElzaher">Github</a></p>
-                         <p style="text-align: center;">
+                        <a style="color:blue;" href="https://www.linkedin.com/in/muhammad-sala7">LinkedIn</a>
+                            
+                        <a style="color:blue;" href="https://github.com/MohamedSalahApdElzaher">Github</a>
+                         
                         <a style="color:blue;" href="https://www.facebook.com/profile.php?id=100004219846601">Facebook</a></p>
                 </div>
                 
