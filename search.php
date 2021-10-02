@@ -23,6 +23,14 @@
                        $query = "SELECT * FROM posts WHERE p_content LIKE '%$search_text%'"; 
                        $result = mysqli_query($con, $query);                            
                     }
+                     
+                  ?>
+                  
+                     <p style="font-weight:bold; font-size:50px" class="page-header">
+                       Results For <?php echo $search_text;?>
+                     </p>
+                  
+                <?php            
                         while($row = mysqli_fetch_assoc($result)){
                             $p_title = $row['p_title'];
                             $p_author = $row['p_author'];
@@ -31,14 +39,11 @@
                             $p_content = $row['p_content'];
 
                ?>
-                
-                <p style="font-weight:bold; font-size:50px" class="page-header">
-                    Results For <?php echo $search_text;?>
-                </p>
+                       
 
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="#"> <?php echo $p_title; ?> </a>
+                     <?php echo $p_title; ?> 
                 </h2>
                 
                 <p class="lead">
@@ -49,12 +54,12 @@
                 
                 <hr>
                 
-                <img class="img-responsive" src="images/<?php echo $p_image;?>"  alt="">
-                <hr>
-                
                 <p><?php echo $p_content; ?></p>
       
                 <hr> 
+                
+               <img class="img-responsive" src="images/<?php echo $p_image;?>"  alt="">
+                <hr>
                  
                      <?php } ?>
                 

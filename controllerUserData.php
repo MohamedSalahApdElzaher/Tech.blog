@@ -140,7 +140,25 @@ if(isset($_POST['add-post'])){
     add_post_db($author, $author_id, $title, $content, $date, $img_name);
 }
 
+// if user click edit post
 
+if(isset($_POST['edit-post'])){	
+    include "includes/db.php";
+    // upload image
+	$img_name = $_FILES['edit-choose-image']['name'];
+	$tmp_img_name = $_FILES['edit-choose-image']['tmp_name'];
+    $folder = 'images/';
+	$res = move_uploaded_file($tmp_img_name, $folder.$img_name);
+    
+    $id = $_SESSION['edit_post_id'];
+    
+    $title = $_POST['edit-text-title'];
+    $content = $_POST['edit-post-content'];
+    
+    $query = "UPDATE posts SET p_title='$title', p_content='$content', p_image='$img_name' WHERE p_id='$id'";
+    mysqli_query($con, $query);
+    header('location: index.php'); 
+}
 
 // if user click send message
 

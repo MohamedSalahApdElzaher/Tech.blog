@@ -38,6 +38,7 @@ if(!$_SESSION['login']){
                         $q_select = mysqli_query($con, $query);
                 
                         while($row = mysqli_fetch_assoc($q_select)){
+                            $id = $row['p_id'];
                             $p_id = $row['author_id'];
                             $p_title = $row['p_title'];
                             $p_author = $row['p_author'];
@@ -52,19 +53,21 @@ if(!$_SESSION['login']){
                 <h3 style="font-weight:bold"> <?php echo $p_title; ?> </h3>
                 
                 <?php 
+                            
+                    // show edit/remove buttons if this user has this post
                 
                     if($p_id === $user_id){
                 
                 ?>
-                
-                <button style="float:right" type="submit" name="edit-post" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button> 
-                 
-                <button style="float:right" type="submit" name="remove-post" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> </button>
+                   
+                   <a style="float:right;margin:5px;font-weight:bold;" href="delete.php?id=<?php echo $id ?>">Delete</a>
+                   <a style="float:right;margin:5px;font-weight:bold;" href="edit_post.php?id=<?php echo $id ?>">Edit</a>
              
+              
                <?php } ?>
                
                 <p><span class="glyphicon glyphicon-user"></span>
-                <a href=""><?php echo $p_author;?></a></p>
+                <a href="author_posts.php?id=<?php echo $p_id ?>"><?php echo $p_author;?></a></p>
                 
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $p_date; ?></p>
                 
