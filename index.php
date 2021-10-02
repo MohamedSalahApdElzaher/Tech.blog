@@ -3,7 +3,6 @@
 <?php 
 
 
-
 include "includes/nav.php";
 
 // if user dosn't sign in

@@ -56,11 +56,16 @@
                                 $q_select = mysqli_query($con, $query);
                                 while($row = mysqli_fetch_assoc($q_select)){
                                     $title=$row['title'];
-                                    echo "<li><a href='#'>{$title}</a></li>"; 
+                              ?>
+                            
+                          <li><a href='index.php?cat=<?php echo $title ?>'><?php echo $title ?></a></li> 
+                            
+                             <?php
+                                    
+                              }      
+                                
                     
-                             }         
-                    
-                    ?>
+                            ?>
                                
                       
                             </ul>

@@ -38,6 +38,7 @@
                         <?php
                     }
                     ?>
+                    
                     <div class="form-group">
                          <div class="form-group">
                         <input class="form-control" type="email" name="email" placeholder="Email.." required>
