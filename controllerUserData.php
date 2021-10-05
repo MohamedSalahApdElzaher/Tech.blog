@@ -32,10 +32,9 @@ if(isset($_POST['signup'])){
         // secure password using hashing method
         $encpass = password_hash($password, PASSWORD_BCRYPT);
         $code = rand(999999, 111111);
-        $status = "notverified";
         
-        $query = "INSERT INTO users (id,user_name, email, password, code, status)
-                        values(null,'$name', '$email', '$encpass', '$code', '$status')";
+        $query = "INSERT INTO users (id,user_name, email, password)
+                        values(null,'$name', '$email', '$encpass')";
         $data_check = mysqli_query($con, $query);
            
 
@@ -107,6 +106,20 @@ function get_date_time(){
     return $formattedTime;
 }
 
+// get user info
+
+function get_author_info(){
+        include "includes/db.php";
+        $email = $_SESSION['email'];
+        $query = "SELECT * FROM users WHERE email='$email'";
+        $result = mysqli_query($con, $query);
+        while($row = mysqli_fetch_assoc($result)){
+              $author_info['name'] = $row['user_name'];
+              $author_info['id'] = $row['id'];
+        }
+       return $author_info;
+}
+
 // add post to database
 
 function add_post_db($author, $author_id, $title, $content, $date, $img_name){
@@ -130,13 +143,9 @@ if(isset($_POST['add-post'])){
     $title = $_POST['text-title'];
     $content = $_POST['post-content'];
     $date = get_date_time();
-    $email = $_SESSION['email'];
-    $query = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($con, $query);
-    while($row = mysqli_fetch_assoc($result)){
-        $author = $row['user_name'];
-        $author_id = $row['id'];
-    }
+    $author_info = get_author_info();
+    $author = $author_info['name'];
+    $author_id = $author_info['id'];
     add_post_db($author, $author_id, $title, $content, $date, $img_name);
 }
 
@@ -194,6 +203,41 @@ if(isset($_POST['send'])){
             $errors['otp-error'] = "You've entered incorrect code!";
         }
     }
+
+   // if user click like button
+   
+    if(isset($_POST['like'])){
+        
+    }
+
+   // if user click like button
+   
+    if(isset($_POST['like'])){
+        
+    }
+
+  // if user click comment
+
+    if(isset($_POST['submit-comment'])){
+        //include "includes/db.php";
+        $id = $_SESSION['p_id'] ;
+        $author_info = get_author_info();
+        $author = $author_info['name'];
+        $date = get_date_time();
+        $comment = $_POST['comment_text'];
+        //TODO ADD COMMENT TO posts database
+        $q = "SELECT * FROM posts WHERE p_id='$id'";
+        $res = mysqli_query($con, $q);
+        while($row = mysqli_fetch_assoc($res)){
+            $comment_count = $row['c_count'];
+        }
+        $comment_count++;
+        $query = "UPDATE posts SET c_count='$comment_count' WHERE p_id='$id'";
+        $q = "INSERT INTO comments (post_id, c_author, c_date , comment) VALUES ('$id', '$author', '$date', '$comment')";
+        mysqli_query($con, $q);
+        mysqli_query($con, $query);
+        header('location: index.php');
+    }
     
 
     //if user click login button
@@ -212,7 +256,6 @@ if(isset($_POST['send'])){
                 $_SESSION['email'] = $email;
                 
                 $_SESSION['login'] = true;
-                $status = $fetch['status'];
                 $msg['logged']='You are just logged in successfully.';
  
                 /*

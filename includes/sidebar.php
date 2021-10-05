@@ -1,29 +1,7 @@
                 
                 
-                 <div class="col-md-4">
-                 <!-- add new post -->
-                 <div class="well">
-                    <h4 style="font-weight:bold">Add Post</h4>
-                    
-                     <form action="controllerUserData.php" method="post" enctype="multipart/form-data">
-
-                        <div class="input-group">
-                          
-                           <input type="text" name="text-title" placeholder="Title.." 
-                            style="border-style: none;margin:5px;border-radius: 5px;" required>
-                            
-                            <textarea name="post-content" id="post" cols="40" rows="5" placeholder="What's in your mind..." 
-                            style="margin:5px;border-radius: 5px;border-style: none;" required></textarea>
-                        </div>
-                        
-                            <input type="file" name="choose-image" style="margin:5px">
-                        
-                           <button style="margin:5px" type="submit" name="add-post" class="btn btn-default"> <span  class="glyphicon glyphicon-plus"></span></button>
-     
-                     </form>
-       
-                </div>
-
+            <div class="col-md-4">
+    
                 <!-- Blog Search Well -->
                 <div class="well">
                     <h4 style="font-weight:bold">Search</h4>
