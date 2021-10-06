@@ -1,11 +1,23 @@
 <?php 
 
+
+// DB PARAMS VALUES
+
+define("DB_SERVER", "localhost");
+define("DB_NAME","tech.blog");
+define("DB_USER","root");
+define("DB_PASS","");
+
 // connect to database
 
-$host = 'localhost';
-$host_name = 'root';
-$host_pass = '';
-$host_db = 'tech.blog';
-$con = mysqli_connect($host, $host_name, $host_pass, $host_db);
+$con = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+
+// check if connection fail
+
+if($con->connect_errno){
+    $msg = "connection faild";
+    $msg .= $con->connect_error;
+    exit($msg);
+}
 
 ?>

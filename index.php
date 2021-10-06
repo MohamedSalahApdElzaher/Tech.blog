@@ -1,9 +1,9 @@
-<?php include "includes/header.php"; ?>
-
 <?php
 
-
+include "includes/header.php";
 include "includes/nav.php";
+include "model/post.php";
+include "model/user.php";
 
 // if user dosn't sign in
 
@@ -45,26 +45,38 @@ if (!$_SESSION['login']) {
 
             <?php
 
+            // get user email stored in session
+
             $user_email = $_SESSION['email'];
-            $q = "SELECT * FROM users WHERE email='$user_email'";
-            $q_sel = mysqli_query($con, $q);
-            while ($row = mysqli_fetch_assoc($q_sel)) {
-                $user_id = $row['id'];
+
+            // connect User class to database
+
+            User::setDatabase($con);
+
+            // call get_by_email method
+
+            $users = User::get_by_email($user_email);
+
+            foreach ($users as $user) {
+                $user_id = $user->getId();
             }
 
-            $query = "SELECT * FROM posts ORDER BY p_date DESC";
-            $q_select = mysqli_query($con, $query);
+            Post::setDataBase($con);
 
-            while ($row = mysqli_fetch_assoc($q_select)) {
-                $id = $row['p_id'];
-                $p_id = $row['author_id'];
-                $p_title = $row['p_title'];
-                $p_author = $row['p_author'];
-                $p_date = $row['p_date'];
-                $p_image = $row['p_image'];
-                $p_content = $row['p_content'];
-                $likes = $row['l_count'];
-                $comments = $row['c_count'];
+            // get array of objects (posts records)
+
+            $posts = Post::getAllPosts();
+
+            foreach ($posts as $post) {
+                $id = $post->getId();
+                $p_id = $post->getAuthor_id();
+                $p_title = $post->getTitle();
+                $p_author = $post->getAuthor();
+                $p_date = $post->getDate();
+                $p_image = $post->getImage();
+                $p_content = $post->getContent();
+                $likes = $post->getL_count();
+                $comments = $post->getLC_count();
 
             ?>
 
