@@ -5,6 +5,14 @@
 class User
 {
 
+    // class attributes
+
+    private $id;
+    private $user_name;
+    private $email;
+    private $password;
+    private $joined;
+
     // start active record code
 
     static protected $database;
@@ -21,7 +29,7 @@ class User
         $sql = "SELECT * FROM users WHERE email='$user_email'";
         $result = self::$database->query($sql);
         if (!$result) {
-            exit("QUERY FAILD!!");
+            exit("QUERY FAILD!!" . self::$database->error);
         }
         $arr_object = [];
         while ($record = $result->fetch_assoc()) {
@@ -42,35 +50,33 @@ class User
         return $object;
     }
 
+    // add new record to database
+
+    public function create()
+    {
+        $sql = "INSERT INTO users (id,user_name, email, password, joined)
+               VALUES(null,'$this->user_name', '$this->email', '$this->password', '$this->joined')";
+        $result = self::$database->query($sql);
+        return $result;
+    }
+
+    public function update($email)
+    {
+        $sql = "UPDATE users SET user_name='$this->user_name', password='$this->password' WHERE email = '$email'";
+        $result = self::$database->query($sql);
+        if(!$result){exit("QUERY FAILED ".self::$database->error);}
+        return $result;
+    }
+
 
 
     // end active record code
-
-    // class attributes
-
-    private $id;
-    private $user_name;
-    private $email;
-    private $password;
-    private $joined;
-
-
 
     // class consructor
 
     public function __construct()
     {
     }
-
-    /*
-    public function __construct($user_name, $email, $password, $joined)
-    {
-        $this->user_name = $user_name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->joined = $joined;
-    }
-    */
 
     // getters and setters
 

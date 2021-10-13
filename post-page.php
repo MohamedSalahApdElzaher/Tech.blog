@@ -16,8 +16,14 @@
 
             <?php
 
-            $id = $_GET['id'];
-            $_SESSION['p_id'] = $id;
+            if($_GET['id'] != null){
+                $id = $_GET['id'];
+                $_SESSION['p_id'] = $id;
+            }           
+            elseif($_SESSION['p_id'] != null){
+                $id = $_SESSION['id'];
+                $_SESSION['p_id'] = $id;
+            }
             $query = "SELECT * FROM posts WHERE p_id='$id'";
             $result = mysqli_query($con, $query);
 

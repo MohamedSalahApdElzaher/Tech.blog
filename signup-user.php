@@ -18,7 +18,7 @@
                     <h2 class="text-center">Registeration Form</h2>
                     <p class="text-center">It's quick and easy.</p>
                     <?php
-                    if(count($errors) == 1){
+                    if(count($errors) === 1){
                         ?>
                         <div class="alert alert-danger text-center">
                             <?php
@@ -58,10 +58,10 @@
                     }
                     ?>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="name" placeholder="Full Name" required value="<?php echo $name ?>">
+                        <input class="form-control" type="text" name="name" placeholder="Full Name" required value="<?php echo $user->getUserName() ?>">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="email" name="email" placeholder="Email Address" required value="<?php echo $email ?>">
+                        <input class="form-control" type="email" name="email" placeholder="Email Address" required value="<?php echo $user->getEmail() ?>">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" placeholder="Password" required>

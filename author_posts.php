@@ -1,4 +1,9 @@
-<?php include "includes/header.php"; ?>
+<?php 
+
+include "includes/header.php";
+include "model/post.php";
+
+?>
 
 <!-- Navigation -->
 
@@ -17,23 +22,17 @@
             <?php
 
             $id = $_GET['id'];
+            Post::setDataBase($con);
             $query = "SELECT * FROM posts WHERE author_id='$id'";
-            $result = mysqli_query($con, $query);
-
+            $posts = Post::get_post_by_sql($query);
+            foreach($posts as $post){
+                $p_title = $post->getTitle();
+                $p_author = $post->getAuthor();
+                $p_date = $post->getDate();
+                $p_image = $post->getImage();
+                $p_content = $post->getContent();        
             ?>
-
-
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-                $p_title = $row['p_title'];
-                $p_author = $row['p_author'];
-                $p_date = $row['p_date'];
-                $p_image = $row['p_image'];
-                $p_content = $row['p_content'];
-
-            ?>
-
-
+          
                 <!-- First Blog Post -->
                 <h2>
                     <?php echo $p_title; ?>

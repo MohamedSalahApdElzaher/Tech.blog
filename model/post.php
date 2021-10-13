@@ -4,13 +4,26 @@
 
 class Post
 {
+
+    // class attributes
+
+    private $p_id;
+    private $author_id;
+    private $p_title;
+    private $p_author;
+    private $p_date;
+    private $p_image;
+    private $p_content;
+    private $l_count;
+    private $c_count;
+
     // start active record code
 
     static protected $database;
 
     static public function setDataBase($database)
     {
-        self::$database = $database;
+        return self::$database = $database;
     }
 
     // get a sql record
@@ -39,6 +52,13 @@ class Post
         return self::get_post_by_sql($query);
     }
 
+    static public function countAllPosts()
+    {
+        $query = "SELECT * FROM posts ORDER BY p_date DESC";
+        $res = self::$database->query($query);
+        return $res->num_rows;
+    }
+
     // automatic assign args here
 
     static protected function instantiate($record)
@@ -53,19 +73,28 @@ class Post
         return $object;
     }
 
+    public function Create()
+    {
+        $sql = "INSERT INTO posts (p_id, author_id, p_author, p_title, p_content, p_date, p_image, l_count, c_count)
+         VALUES (null,'$this->author_id','$this->p_author', '$this->p_title', '$this->p_content', '$this->p_date', '$this->p_image' ,0,0)";
+        $result = self::$database->query($sql);
+        if (!$result) {
+            exit("QUERY FAILED!! " . self::$database->error);
+        }
+        return $result;
+    }
+
+    public function Update($id)
+    {
+        $sql = "UPDATE posts SET p_title='$this->p_title', p_content='$this->p_content', p_image='$this->p_image' WHERE p_id='$id'";
+        $result = self::$database->query($sql);
+        if (!$result) {
+            exit("QUERY FAILED!! " . self::$database->error);
+        }
+        return $result;
+    }
+
     // end active record code
-
-    // class attributes
-
-    private $p_id;
-    private $author_id;
-    private $p_title;
-    private $p_author;
-    private $p_date;
-    private $p_image;
-    private $p_content;
-    private $l_count;
-    private $c_count;
 
 
     // class consructor (empty to automatic assign args)
@@ -73,20 +102,6 @@ class Post
     public function __construct()
     {
     }
-
-    /*
-    public function __construct($author_id, $p_title, $p_author, $p_date, $p_image, $p_content, $l_count, $c_count)
-    {
-        $this->author_id = $author_id;
-        $this->p_title = $p_title;
-        $this->p_author = $p_author;
-        $this->p_date = $p_date;
-        $this->p_image = $p_image;
-        $this->p_content = $p_content;
-        $this->l_count = $l_count;
-        $this->c_count = $c_count;
-    }
-    */
 
     // getters and setters
 
@@ -98,6 +113,11 @@ class Post
     public function setAuthor($p_author)
     {
         $this->p_author = $p_author;
+    }
+
+    public function setAuthorId($p_author_id)
+    {
+        $this->author_id = $p_author_id;
     }
 
     public function setDate($p_date)
