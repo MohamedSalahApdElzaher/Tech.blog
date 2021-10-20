@@ -34,9 +34,26 @@ if (isset($_POST['signup'])) {
     $password = $connection->real_escape_string($_POST['password']);
     $cpassword = $connection->real_escape_string($_POST['cpassword']);
 
-    // check password matching
+    
+    // check password validation
+
+    if(strlen($password) < '8'){
+        $errors['password-length'] = "Your Password Must Contain At Least 8 Characters!";
+    }
+    elseif(!preg_match("#[0-9]+#",$password)) {
+        $errors['password-match'] = "Your Password Must Contain At Least 1 Number!";
+    }
+    elseif(!preg_match("#[A-Z]+#",$password)) {
+        $errors['password-c-letter'] = "Your Password Must Contain At Least 1 Capital Letter!";
+    }
+    elseif(!preg_match("#[a-z]+#",$password)) {
+        $errors['password-l-letters'] = "Your Password Must Contain At Least 1 Lowercase Letter!";
+    }
+    
+    // check password confirming
+    
     if ($password !== $cpassword) {
-        $errors['password'] = "Confirm password not matched!";
+        $errors['password-confirm'] = "Confirm password not matched!";
     }
 
     // check existance of Emails
